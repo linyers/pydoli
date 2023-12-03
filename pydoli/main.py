@@ -47,7 +47,7 @@ class Database:
 
 
 class Todo:
-    VERSION = "0.0.1"
+    VERSION = "0.1"
     NAME = "pydoli"
 
     def __init__(self, database):
