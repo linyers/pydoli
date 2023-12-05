@@ -73,7 +73,7 @@ class Todo:
             }
             len_database += 1
             tasks.append(task)
-        database.save_with_existing_data(tasks)
+        self.database.save_with_existing_data(tasks)
 
     def remove(self, *args):
         """Pass the one or more ids tasks to remove from the database"""
@@ -82,7 +82,7 @@ class Todo:
             sys.exit(1)
         
         if 'all' in args:
-            database.save([])
+            self.database.save([])
             return
         
         for a in args:
@@ -92,12 +92,12 @@ class Todo:
                 print(f"{a} not is an integer")
                 sys.exit(1)
         
-        database_data = database.load()
-        new_data = list(filter(lambda x: str(x["id"]) not in args, database_data))
-        database.save(new_data)
+        database_data = self.database.load()
+        new_data = list(filter(lambda x: str(x["id"]) not in args and x["id"] not in args, database_data))
+        self.database.save(new_data)
 
     def list(self):
-        database_data = database.load()
+        database_data = self.database.load()
         CHECK = u'\u2713'
         CROSS = u'\u2717'
         for d in database_data:
@@ -116,11 +116,11 @@ class Todo:
             print(f"{args[0]} not is an integer")
             sys.exit(1)
         
-        database_data = database.load()
+        database_data = self.database.load()
 
         edited = False
         for d in database_data:
-            if str(d["id"]) == args[0]:
+            if str(d["id"]) == args[0] or d["id"] == args[0]:
                 d["task"] = args[1]
                 edited = True
                 break
@@ -129,7 +129,7 @@ class Todo:
             print(f"{args[0]} not in database")
             sys.exit(1)
         
-        database.save(database_data)
+        self.database.save(database_data)
 
     def done(self, *args):
         if len(args) == 0:
@@ -144,13 +144,13 @@ class Todo:
                 sys.exit(1)
 
         
-        database_data = database.load()
+        database_data = self.database.load()
 
         for d in database_data:
-            if str(d["id"]) in args:
+            if str(d["id"]) in args or d["id"] in args:
                 d["done"] = True
         
-        database.save(database_data)
+        self.database.save(database_data)
 
     def help(self):
         print(
