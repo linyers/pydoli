@@ -1,4 +1,4 @@
-from .main import *
+from .pydoli import Todo, Database, JSON_PATH
 
 Database = Database(JSON_PATH)
 Pydoli = Todo(Database)

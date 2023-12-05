@@ -167,8 +167,7 @@ version""")
         print(self.VERSION, self.NAME)
         return
 
-
-if __name__ == "__main__":
+def main():
     PARAMETTERS = ["add", "remove", "list", "edit", "done", "help", "version"]
     args = sys.argv
 
